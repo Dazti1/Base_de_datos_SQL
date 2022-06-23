@@ -1,0 +1,65 @@
+
+DROP TABLE CLIENTE;
+DROP TABLE VISITA;
+DROP TABLE PROPIEDAD;
+DROP TABLE OFICINA;
+DROP TABLE PROPIETARIO;
+DROP TABLE EMPLEADO;
+
+create table CLIENTE
+(numero number (6) not null,
+nombre varchar2 (20) not null,
+apellido varchar2 (20) not null,
+direccion varchar2 (40) not null,
+telefono number (12),
+constraint pk_CLIENTE primary key (numero));
+
+create table VISITA
+(id_visita number (8) not null,
+CLIENTE_numero number (6) not null,
+PROPIEDAD_numero number (8) not null,
+apellido varchar2 (20) not null,
+direccion varchar2 (40) not null,
+telefono number(12),
+constraint pk_VISITA primary key (id_visita));
+
+create table PROPIEDAD
+(numero number (8) not null,
+calle varchar2 (20) not null,
+ciudad varchar2 (30) not null,
+codigo_postal number (10) not null,
+tipo varchar2 (30) not null,
+habitacion number (3) not null,
+valor number (10) not null,
+PROPIETARIO_numero number(8) not null,
+EMPLEADO_numero varchar2(5) not null,
+constraint pk_PROPIEDAD primary key (numero));
+
+create table OFICINA
+(numero number (8) not null,
+calle varchar2 (20) not null,
+ciudad varchar2 (30) not null,
+codigo_postal number (10) not null,
+constraint pk_OFICINA primary key (numero));
+
+create table PROPIETARIO
+(numero number (8) not null,
+nombre varchar2 (20) not null,
+apellido varchar2 (20) not null,
+direccion varchar2 (40) not null,
+sexo char(1) not null,
+constraint pk_PROPIETARIO primary key (numero));
+
+create table EMPLEADO
+(numero varchar2 (5) not null,
+nombre varchar2 (20) not null,
+apellido varchar2 (20) not null,
+cargo varchar2 (20) not null,
+sexo char (1) not null,
+sueldo number (8) not null,
+OFICINA_numero number (8),
+constraint pk_EMPLEADO primary key (numero));
+
+ALTER TABLE VISITA
+    ADD CONSTRAINT fk_VISITA_CLIENTE foreign key (CLIENTE_numero)
+    references CLIENTE (numero);
